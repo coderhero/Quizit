@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { getAllQuestionsByQuiz } from '../../services/questionAPIServices';
-import { getAllAnswersByQuestion } from '../../services/answerAPIServices';
+import Question from './Question';
+import AnswerSet from './AnswerSet';
+import { getAllQuestionsByQuiz } from '../services/questionAPIServices';
+import { getAllAnswersByQuestion } from '../services/answerAPIServices';
 
 class QuizSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
       totalQuestions: [],
-      totalAnswers: []
+      totalAnswers: [],
+      currentQuestion: 0,
+
     }
   }
   async componentDidMount() {
@@ -17,14 +21,17 @@ class QuizSession extends Component {
     // const qWithAnswers = await this.attachAnswersToQuestions(answers, questions);
     this.setState({
       totalQuestions: questions,
-      totalAnswers: answers
+      totalAnswers: answers,
+      currentQuestion: questions[0].id
     })
   }
   render() {
     return (
       <div>
+        <h1>{this.props.description}</h1>
+        <h2>Hello World</h2>
         <Question />
-        <AnswerOption />
+        <AnswerSet />
       </div>
     );
   }
