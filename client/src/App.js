@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import QuizSession from './components/QuizSession'
+import { getAllQuizzes } from './services/quizAPIServices';
+
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalQuizzes: [],
+    }
+  }
+  async componentDidMount() {
+    const quizzes = await getAllQuizzes();
+    const quizID = quizzes[0].id;
+
+
+    this.setState({
+      totalQuizzes: quizzes
+    })
+  }
+  // attachAnswersToQuestions(answers, questions) {
+  //   return Promise.all(questions.map((e, index) => {
+  //     e.answers = answers[index]
+  //   }))
+  // }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <QuizSession quizID = {4}/>
       </div>
     );
   }
