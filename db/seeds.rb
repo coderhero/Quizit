@@ -92,3 +92,17 @@ User.destroy_all
   answer: 'shouldComponentUpdate',
   correct: true
 )
+@ruby_quiz = @user_2.quizzes.create(
+  title: 'Ruby Quiz',
+  description: 'Welcome to test your Ruby Knowledge'
+)
+@question_ruby_1 = @ruby_quiz.questions.create(
+  title: 'You need to send a value back to the code that called it (return a value to the caller). Which method can/should be used for this?',
+  timer: 10
+)
+Answer.create([
+    { answer: 'post', correct: false, question: @question_ruby_1 },
+    { answer: 'send', correct: false, question: @question_ruby_1 },
+    { answer: 'return', correct: true, question: @question_ruby_1 },
+    { answer: 'json', correct: false, question: @question_ruby_1 }
+  ])

@@ -3,8 +3,11 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    @questions = Question.all
-
+    if params.has_key?(:quiz_id)
+      @questions = Question.where(quiz_id: params[:quiz_id])
+    else
+      @questions = Question.all
+    end
     render json: @questions
   end
 
@@ -32,6 +35,7 @@ class QuestionsController < ApplicationController
       render json: @question.errors, status: :unprocessable_entity
     end
   end
+  # PUT /questions/1/answers/1
 
   # DELETE /questions/1
   def destroy

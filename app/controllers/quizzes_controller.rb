@@ -3,8 +3,11 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes
   def index
-    @quizzes = Quiz.all
-
+    if params.has_key?(:user_id)
+      @quizzes = Quiz.where(user_id: params[:user_id])
+    else
+      @quizzes = Quiz.all
+    end
     render json: @quizzes
   end
 
@@ -38,6 +41,12 @@ class QuizzesController < ApplicationController
     @quiz.destroy
   end
 
+  # GET /quizzes/mine
+  def mine
+    @quizzes = current_user.quizzes
+    render json: @quizzes
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz

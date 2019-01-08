@@ -3,8 +3,11 @@ class AnswersController < ApplicationController
 
   # GET /answers
   def index
-    @answers = Answer.all
-
+    if params.has_key?(:question_id)
+      @answers = Answer.where(question_id: params[:question_id])
+    else
+      @answers = Answer.all
+    end
     render json: @answers
   end
 
