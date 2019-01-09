@@ -13,13 +13,13 @@ class QuizSession extends Component {
       totalQuestions: null,
       totalAnswers: null,
       // currentAnswerSetIndex is the same as the questionIndex
-      currentQuestionIndex: 0,
       isQuizComplete: false,
+      totalCorrectAnswer: 0,
+      score: 0,
+      currentQuestionIndex: 0,
       isAnswerSelected: false,
       isAnswerCorrect: false,
-      totalCorrectAnswer: 0,
-      numberOfTry: 0,
-      score: 0
+      numberOfTry: 0
     }
   }
   async componentDidMount() {
@@ -38,6 +38,28 @@ class QuizSession extends Component {
 
   }
 
+  resetNewQuestionState = () => {
+    setTimeout(
+      () => {
+        if (this.state.currentQuestionIndex + 1 >= this.state.totalQuestions.length) {
+          this.setState({
+            isQuizComplete: true
+          })
+        } else {
+          this.setState(prevState => {
+          const questionIndex = prevState.currentQuestionIndex + 1;
+          return (
+            {
+              isAnswerSelected: false,
+              isAnswerCorrect: false,
+              numberOfTry: 0,
+              currentQuestionIndex: questionIndex
+            }
+          )
+        })
+        }
+      }, 500);
+  }
 
   handleAnswerSelect = e => {
     const { value } = e.currentTarget;
@@ -47,11 +69,19 @@ class QuizSession extends Component {
         return ({
           isAnswerSelected: true,
           isAnswerCorrect: true,
-          numberOfTry,
+          numberOfTry
         })
       })
-    } else {
-
+      this.resetNewQuestionState();
+    } else if(value === "false") {
+      this.setState(prevState => {
+        const numberOfTry = prevState.numberOfTry + 1;
+        return ({
+          isAnswerSelected: true,
+          isAnswerCorrect: false,
+          numberOfTry
+        })
+      })
     }
   }
 
@@ -84,7 +114,7 @@ class QuizSession extends Component {
     }
   }
 
-  showResult = () => {
+  showTimerOrResult = () => {
     if (this.state.isQuizComplete) {
       return (
         <QuizResult />
@@ -98,7 +128,7 @@ class QuizSession extends Component {
         {this.showQuestion()}
         {this.showAnswerSet()}
         {this.showMessage()}
-        {this.showResult()}
+        {this.showTimerOrResult()}
       </div>
     );
   }
