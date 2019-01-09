@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 
 class AnswerSet extends Component {
   constructor(props) {
@@ -6,16 +7,19 @@ class AnswerSet extends Component {
   }
   showAnswerList = () => {
       return (
-        <ul>
+        <div className='answer-set'>
           {this.props.answers.map(answer => {
             return (
-              <li key={answer.id}>
-              <button onClick={this.props.handleAnswerSelect}>
-              { answer.answer }</button>
-              </li>
+              <Button id={answer.id}
+                      key={answer.id}
+                      color="info"
+                      value={answer.correct}
+                      onClick={this.props.handleSelect}>
+              { answer.answer }
+              </Button>
             )
           })}
-        </ul>
+        </div>
       )
   }
   render() {

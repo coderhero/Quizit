@@ -8,6 +8,13 @@ class SearchBar extends Component {
         <form onSubmit={this.props.handleSubmit}>
           <input
           type="text"
+          name="name"
+          placeholder="Enter Your Name Here"
+          
+          >
+          </input>
+          <input
+          type="text"
           name="searchTerm"
           placeholder="Search Quiz"
           value={this.props.searchTerm}

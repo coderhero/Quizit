@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Question from './Question';
 import AnswerSet from './AnswerSet';
-import Result from './Result';
+import QuizResult from './QuizResult';
 import LoadingMask from '../util/LoadingMask';
 import { getAllQuestionsByQuiz } from '../services/questionAPIServices';
 import { getAllAnswersByQuestion } from '../services/answerAPIServices';
@@ -12,12 +12,14 @@ class QuizSession extends Component {
     this.state = {
       totalQuestions: null,
       totalAnswers: null,
-      currentQuestionID: 0,
       // currentAnswerSetIndex is the same as the questionIndex
       currentQuestionIndex: 0,
       isQuizComplete: false,
-      answerSelected: 0,
-      scores: 0
+      isAnswerSelected: false,
+      isAnswerCorrect: false,
+      totalCorrectAnswer: 0,
+      numberOfTry: 0,
+      score: 0
     }
   }
   async componentDidMount() {
@@ -32,14 +34,31 @@ class QuizSession extends Component {
 
     })
   }
-  goNextQuestion = () => [
+  goNextQuestion = () => {
 
-  ]
+  }
+
+
+  handleAnswerSelect = e => {
+    const { value } = e.currentTarget;
+    if (value === "true") {
+      this.setState(prevState => {
+        const numberOfTry = prevState.numberOfTry + 1;
+        return ({
+          isAnswerSelected: true,
+          isAnswerCorrect: true,
+          numberOfTry,
+        })
+      })
+    } else {
+
+    }
+  }
 
   showQuestion = () => {
     if (!this.state.isQuizComplete) {
       return (
-        this.state.totalQuestions ? <Question question={this.state.totalQuestions[0]}
+        this.state.totalQuestions ? <Question question={this.state.totalQuestions[this.state.currentQuestionIndex]}
         /> : <LoadingMask />
       )
     }
@@ -47,15 +66,28 @@ class QuizSession extends Component {
   showAnswerSet = () => {
     if (!this.state.isQuizComplete) {
       return (
-        this.state.totalAnswers ? <AnswerSet answers={this.state.totalAnswers[0]}
+        this.state.totalAnswers ?
+        <AnswerSet answers={this.state.totalAnswers[this.state.currentQuestionIndex]}
+                   handleSelect={this.handleAnswerSelect}
+
         /> : <LoadingMask />
       )
     }
   }
+  showMessage = () => {
+    if (this.state.numberOfTry && !this.state.isQuizComplete) {
+      return (
+        this.state.isAnswerCorrect ?
+        <p>Wonderful! You are correct!</p>
+        : <p>Unfortunately! Your answer is wrong, try it again</p>
+      )
+    }
+  }
+
   showResult = () => {
     if (this.state.isQuizComplete) {
       return (
-        <Result />
+        <QuizResult />
       )
     }
   }
@@ -65,6 +97,7 @@ class QuizSession extends Component {
         <h2>{this.props.description}</h2>
         {this.showQuestion()}
         {this.showAnswerSet()}
+        {this.showMessage()}
         {this.showResult()}
       </div>
     );
