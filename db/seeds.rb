@@ -27,7 +27,7 @@ User.destroy_all
 # Quiz creation
 @react_quiz = @user_1.quizzes.create(
   title: 'React Quiz',
-  description: 'Welcome to test your react knowledge'
+  description: 'Welcome to test your React knowledge'
 )
 # Question_1 creation
 @question_1 = @react_quiz.questions.create(

@@ -13,14 +13,13 @@ class App extends Component {
       totalQuizzes: [],
       searchTerm: '',
       quizSessionID: 0,
-      quizSessionDescription: ''
+      quizSessionDescription: '',
+      isLandingPage: true
 
     }
   }
   async componentDidMount() {
     const quizzes = await getAllQuizzes();
-    const quizID = quizzes[0].id;
-
 
     this.setState({
       totalQuizzes: quizzes
@@ -42,18 +41,28 @@ class App extends Component {
   handleQuizSearchSubmit = e => {
     e.preventDefault();
     const matchedQuiz = this.state.totalQuizzes.filter(quiz =>
-      quiz.title.toLowerCase() === this.state.searchTerm
+      quiz.title.toLowerCase().includes(this.state.searchTerm)
     );
     const sessionQuiz = matchedQuiz[0];
     console.log(sessionQuiz)
     if (sessionQuiz) {
       this.setState({
         quizSessionID: sessionQuiz.id,
-        quizSessionDescription: sessionQuiz.description
+        quizSessionDescription: sessionQuiz.description,
+        isLandingPage: false
       })
     }
   }
 
+  showSearchBar() {
+    return (
+      this.state.isLandingPage ?
+      <SearchBar
+        searchTerm={this.state.searchTerm}
+        handleChange={this.handleQuizSearchChange}
+        handleSubmit={this.handleQuizSearchSubmit} /> : null
+    )
+  }
   showQuizSession() {
     const sessionID = this.state.quizSessionID;
     return (
@@ -68,10 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar />
-        <SearchBar
-          searchTerm={this.state.searchTerm}
-          handleChange={this.handleQuizSearchChange}
-          handleSubmit={this.handleQuizSearchSubmit} />
+        { this.showSearchBar() }
         { this.showQuizSession() }
       </div>
     );
