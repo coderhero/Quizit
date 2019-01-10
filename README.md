@@ -1,24 +1,36 @@
-# README
+# Quizit
+an education quiz app
+flat, simple and colorful UI design
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Technical Stacks
+- React, Ruby on Rails
 
-Things you may want to cover:
+## user story
+### users
+- Register/Login
+- After Login, user can create a quiz including multiple questions
+- Each question has maximum four options and only one is correct
+- Able to add edit and delete quiz, questions and answers
 
-* Ruby version
+### participants/attendee
+- Join a quiz by entering the quiz name
+- each question takes 20 seconds countdown
+- after student has selected answer or time is up, the message page
+ shows if student answer it right or wrong
+- if the first choice is wrong, participant is offered the second chance
+- after student finishes the quiz, results are rendered
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## students scoring calculation system
+## total points
+### in the first try if answer is correct, points awarded depend on response time
+-  response time  points awarded
+      <=5s             500
+  5s < time <= 10s     420
+  10s < time <= 15s    360
+  15s < time <= 20s    280
+### in the second try if answer is correct
+-  response time   points awarded
+      <=5s             240
+  5s < time <= 10s     180
+  10s < time <= 15s    120
+  15s < time <= 20s     60

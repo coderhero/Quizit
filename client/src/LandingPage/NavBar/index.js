@@ -15,12 +15,12 @@ export default function NavBar(props) {
             <NavLink href="#"
                      onClick={props.navPage}
                      id='AllQuizzes'
-            >All Quizzes</NavLink>
+            >Quizzes</NavLink>
           </NavItem>
           <NavItem>
             <NavLink href="#"
                      onClick={props.navPage}
-                     id='QuizzSession'
+                     id='AllQuizzes'
             >React Quiz</NavLink>
           </NavItem>
           <NavItem>

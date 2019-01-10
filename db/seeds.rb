@@ -13,10 +13,10 @@ User.destroy_all
 
 # User seed creation
 @user_1 = User.create(
-  username: 'yan',
-  email: 'yy@gmail.com',
-  password: 'yy',
-  password_confirmation: 'yy'
+  username: 'aa',
+  email: 'aa@gmail.com',
+  password: 'aa',
+  password_confirmation: 'aa'
 )
 @user_2 = User.create(
   username: 'gg',
@@ -24,74 +24,77 @@ User.destroy_all
   password: 'gg',
   password_confirmation: 'gg'
 )
+@user_3 = User.create(
+  username: 'bb',
+  email: 'bb@gmail.com',
+  password: 'bb',
+  password_confirmation: 'bb'
+)
 # Quiz creation
 @react_quiz = @user_1.quizzes.create(
   title: 'React Quiz',
   description: 'Welcome to Awesome React Challenge'
 )
-# Question_1 creation
 @question_1 = @react_quiz.questions.create(
-  title: 'Which is first invoked in React Life Cycle?',
-  timer: 10
-)
-# Answers creation
-@answer_1 = @question_1.answers.create(
-  answer: 'componentDidMount',
-  correct: false
-)
-@answer_2 = @question_1.answers.create(
-  answer: 'componentWillMount',
-  correct: false
-)
-@answer_3 = @question_1.answers.create(
-  answer: 'render',
-  correct: false
-)
-@answer_4 = @question_1.answers.create(
-  answer: 'getDefaultProp',
-  correct: true
-)
-# Question_2 creation
+  title: 'Everything in React is a _____')
 @question_2 = @react_quiz.questions.create(
-  title: 'What happens when you call setState() inside render() method?',
-  timer: 10
-)
-@answer_5 = @question_2.answers.create(
-  answer: 'Stack overflow error',
-  correct: true
-)
-@answer_6 = @question_2.answers.create(
-  answer: 'Duplicate key error',
-  correct: false
-)
-@answer_7 = @question_2.answers.create(
-  answer: 'Repetitive output appears on the screen',
-  correct: false
-)
-@answer_8 = @question_2.answers.create(
-  answer: 'Nothing happens',
-  correct: false
+  title: 'What is Babel?'
 )
 @question_3 = @react_quiz.questions.create(
-  title: 'Which method in a React Component should you override to stop the component from updating?',
-  timer: 10
+  title: 'What is NOT a feature of React?'
 )
-@answer_9 = @question_3.answers.create(
-  answer: 'componentDidMount',
-  correct: false
+@question_4 = @react_quiz.questions.create(
+  title: 'Which command do you use to run a local server and start react app?'
 )
-@answer_10 = @question_3.answers.create(
-  answer: 'componentDidUpdate',
-  correct: false
+@question_5 = @react_quiz.questions.create(
+  title: 'Which is first invoked in React Life Cycle?'
 )
-@answer_11 = @question_3.answers.create(
-  answer: 'willComponentUpdate',
-  correct: false
+@question_6 = @react_quiz.questions.create(
+  title: 'What happens when you call setState() inside render() method?'
 )
-@answer_12 = @question_3.answers.create(
-  answer: 'shouldComponentUpdate',
-  correct: true
+@question_7 = @react_quiz.questions.create(
+  title: 'Which method in a React Component should you override to stop the component from updating?'
 )
+@question_8 = @react_quiz.questions.create(
+  title: 'In the MVC Model, React best represents the ___'
+)
+Answer.create([
+  { answer: 'Module', correct: false, question:@question_1 },
+  { answer: 'Component', correct: true, question:@question_1 },
+  { answer: 'Package', correct: false, question:@question_1 },
+  { answer: 'Class', correct: false, question:@question_1 },
+  { answer: 'An Interpreter', correct: false, question:@question_2 },
+  { answer: 'A Compiler', correct: true, question:@question_2 },
+  { answer: 'A Text Editor ', correct: false, question:@question_2 },
+  { answer: 'A programming language', correct: false, question:@question_2 },
+  { answer: 'virtual DOM', correct: false, question:@question_3 },
+  { answer: 'uni-directional data flow', correct: false, question:@question_3 },
+  { answer: 'uses the virtual DOM', correct: false, question:@question_3 },
+  { answer: 'easy state management', correct: true, question:@question_3 },
+  { answer: 'npm start-react-app', correct: false, question:@question_4 },
+  { answer: 'npm new app', correct: false, question:@question_4 },
+  { answer: 'yarn start', correct: true, question:@question_4 },
+  { answer: 'npm install', correct: false, question:@question_4 },
+  { answer: 'componentDidMount', correct: false, question:@question_5 },
+  { answer: 'componentDidUpdate', correct: false, question:@question_5 },
+  { answer: 'componentWillMount', correct: false, question:@question_5 },
+  { answer: 'getDefaultProp', correct: true, question:@question_5 },
+  { answer: 'Stack overflow error', correct: true, question:@question_6},
+  { answer: 'Duplicate key error', correct: false, question:@question_6},
+  { answer: 'Repetitive output appears on the screen', correct: false, question:@question_6},
+  { answer: 'No errors', correct: false, question:@question_6},
+  { answer: 'shouldComponentUpdate', correct: true, question: @question_7 },
+  { answer: 'componentDidMount', correct: false, question: @question_7 },
+  { answer: 'willComponentUpdate', correct: false, question: @question_7 },
+  { answer: 'componentDidUpdate', correct: false, question: @question_7 },
+  { answer: 'M', correct: false, question:@question_8 },
+  { answer: 'V', correct: true, question:@question_8 },
+  { answer: 'C', correct: false, question:@question_8 },
+  { answer: 'none of above', correct: false, question:@question_8 },
+
+
+  ])
+
 @ruby_quiz = @user_2.quizzes.create(
   title: 'Ruby Quiz',
   description: 'Welcome to test your Ruby Knowledge'

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import QuizSession from './QuizSession';
 import NavBar from './LandingPage/NavBar';
 import SearchBar from './LandingPage/SearchBar';
+import QuizzesPage from './AllQuizzesPage';
 import { getAllQuizzes } from './services/quizAPIServices';
 
 import './App.css';
@@ -50,8 +51,10 @@ class App extends Component {
       this.setState({
         quizSessionID: sessionQuiz.id,
         quizSessionDescription: sessionQuiz.description,
-        screen: 'QuizSession'
-      })
+        screen: 'QuizSession',
+        searchTerm: ''
+      });
+
     }
   }
   navPage = evt => {
@@ -72,6 +75,7 @@ class App extends Component {
         />
     )
   }
+
   showQuizSession() {
     return (
        <QuizSession quizID={this.state.quizSessionID}
@@ -89,18 +93,24 @@ class App extends Component {
       )
 
       case 'AllQuizzes':
-
+        return (
+          <QuizzesPage />
+        )
         break;
       case "Profile":
 
       case "QuizSession":
-      return (
+       return (
         <div>
           { this.showQuizSession() }
         </div>
       )
-
         break;
+        return (
+          <div>
+
+          </div>
+        )
       default:
 
     }

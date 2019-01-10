@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Question from './Question';
 import AnswerSet from './AnswerSet';
 import QuizResult from './QuizResult';
+import SessionInfo from './SessionInfo';
 import LoadingMask from '../util/LoadingMask';
 import { getAllQuestionsByQuiz } from '../services/questionAPIServices';
 import { getAllAnswersByQuestion } from '../services/answerAPIServices';
@@ -10,6 +11,7 @@ class QuizSession extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      ifStartQ: false,
       totalQuestions: null,
       totalAnswers: null,
       // currentAnswerSetIndex is the same as the questionIndex
@@ -35,7 +37,11 @@ class QuizSession extends Component {
 
     })
   }
-
+  startQuestion = () => {
+    this.setState({
+      ifStartQ: true
+    })
+  }
   resetNewQuestionState = () => {
     setTimeout(
       () => {
@@ -156,10 +162,15 @@ class QuizSession extends Component {
   render() {
     return (
       <div>
-        <h2>{this.props.description}</h2>
-        {this.showQuestion()}
-        {this.showAnswerSet()}
-        {this.showTimerOrMessage()}
+        { this.state.ifStartQ ? (
+          <div>
+          {this.showQuestion()}
+          {this.showAnswerSet()}
+          {this.showTimerOrMessage()}
+          </div>
+        ) : <SessionInfo description={this.props.description}
+                         startQuestion={this.startQuestion}
+        />}
         {this.showResult()}
       </div>
     );
