@@ -18,7 +18,11 @@ class QuestionsController < ApplicationController
 
   # POST /questions
   def create
-    @question = Question.new(question_params)
+    # if use params:[:quiz_id] will cause syntax error
+    # need association with quiz so need to find the @quiz first
+    @quiz = Quiz.find(params[:quiz_id])
+    @question = @quiz.questions.new(question_params)
+    # @question = Question.new(question_params)
 
     if @question.save
       render json: @question, status: :created, location: @question
@@ -29,6 +33,9 @@ class QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   def update
+    # no need to find a quiz
+    # @quiz = Quiz.find(params[:quiz_id])
+    # @question = @quiz.questions.update(question_params)
     if @question.update(question_params)
       render json: @question
     else
@@ -50,6 +57,6 @@ class QuestionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def question_params
-      params.require(:question).permit(:title, :timer)
+      params.require(:question).permit(:title, :timer, :quiz_id)
     end
 end

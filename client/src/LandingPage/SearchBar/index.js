@@ -8,9 +8,10 @@ class SearchBar extends Component {
         <form onSubmit={this.props.handleSubmit}>
           <input
           type="text"
-          name="name"
+          name="tester"
           placeholder="Enter Your Name Here"
-          
+          onChange={this.props.handleChange}
+          value={this.props.tester}
           >
           </input>
           <input

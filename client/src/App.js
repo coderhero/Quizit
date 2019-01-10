@@ -11,10 +11,11 @@ class App extends Component {
     super(props);
     this.state = {
       totalQuizzes: [],
-      searchTerm: '',
       quizSessionID: 0,
       quizSessionDescription: '',
-      isLandingPage: true
+      screen: 'Home',
+      searchTerm: '',
+      tester: ''
 
     }
   }
@@ -49,36 +50,68 @@ class App extends Component {
       this.setState({
         quizSessionID: sessionQuiz.id,
         quizSessionDescription: sessionQuiz.description,
-        isLandingPage: false
+        screen: 'QuizSession'
       })
     }
+  }
+  navPage = evt => {
+    const id = evt.currentTarget.id;
+    this.setState({
+      screen: id
+    })
   }
 
   showSearchBar() {
     return (
-      this.state.isLandingPage ?
       <SearchBar
         searchTerm={this.state.searchTerm}
+        tester={this.state.tester}
         handleChange={this.handleQuizSearchChange}
-        handleSubmit={this.handleQuizSearchSubmit} /> : null
+        handleSubmit={this.handleQuizSearchSubmit}
+
+        />
     )
   }
   showQuizSession() {
-    const sessionID = this.state.quizSessionID;
     return (
-      sessionID ? <QuizSession quizID={sessionID}
-                               description={this.state.quizSessionDescription}
-      />
-    : null
-    )
+       <QuizSession quizID={this.state.quizSessionID}
+                    tester={this.state.tester}
+                    description={this.state.quizSessionDescription} />
+    )}
+
+  getView = screen => {
+    switch (this.state.screen) {
+      case 'Home':
+      return (
+        <div>
+          { this.showSearchBar() }
+        </div>
+      )
+
+      case 'AllQuizzes':
+
+        break;
+      case "Profile":
+
+      case "QuizSession":
+      return (
+        <div>
+          { this.showQuizSession() }
+        </div>
+      )
+
+        break;
+      default:
+
+    }
   }
 
   render() {
     return (
       <div className="App">
-        <NavBar />
-        { this.showSearchBar() }
-        { this.showQuizSession() }
+        <NavBar navPage={this.navPage}
+          />
+        { this.getView() }
       </div>
     );
   }

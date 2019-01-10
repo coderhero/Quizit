@@ -1,14 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Nav, NavItem, NavLink } from 'reactstrap';
 
-class NavBar extends Component {
-
-  render() {
+export default function NavBar(props) {
     return (
       <div>
-        navbar show all quizzes, login/signup
+        <Nav>
+        <NavItem>
+          <NavLink href="#"
+                   onClick={props.navPage}
+                   id='Home'
+          >Home</NavLink>
+        </NavItem>
+          <NavItem>
+            <NavLink href="#"
+                     onClick={props.navPage}
+                     id='AllQuizzes'
+            >All Quizzes</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#"
+                     onClick={props.navPage}
+                     id='QuizzSession'
+            >React Quiz</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="#"
+                     onClick={props.navPage}
+                     id='Login'
+            >Login/Signup</NavLink>
+          </NavItem>
+        </Nav>
       </div>
     )
-  }
 }
-
-export default NavBar;

@@ -17,9 +17,10 @@ class QuizSession extends Component {
       totalCorrectAnswer: 0,
       score: 0,
       currentQuestionIndex: 0,
-      isAnswerSelected: false,
       isAnswerCorrect: false,
-      numberOfTry: 0
+      numberOfTry: 0,
+      countDown: 20,
+      answerDuration: 20
     }
   }
   async componentDidMount() {
@@ -34,9 +35,6 @@ class QuizSession extends Component {
 
     })
   }
-  goNextQuestion = () => {
-
-  }
 
   resetNewQuestionState = () => {
     setTimeout(
@@ -50,41 +48,53 @@ class QuizSession extends Component {
           const questionIndex = prevState.currentQuestionIndex + 1;
           return (
             {
-              isAnswerSelected: false,
               isAnswerCorrect: false,
               numberOfTry: 0,
-              currentQuestionIndex: questionIndex
+              currentQuestionIndex: questionIndex,
+              countDown: 20,
+              answerDuration: 20
             }
           )
         })
         }
-      }, 500);
+      }, 1200);
   }
 
   handleAnswerSelect = e => {
     const { value } = e.currentTarget;
     if (value === "true") {
-      this.setState(prevState => {
-        const numberOfTry = prevState.numberOfTry + 1;
-        return ({
-          isAnswerSelected: true,
-          isAnswerCorrect: true,
-          numberOfTry
-        })
-      })
+      this.updateCorrectAnswer();
       this.resetNewQuestionState();
+    } else if(value === "false" && this.state.numberOfTry === 1) {
+        this.resetNewQuestionState();
+        this.increaseAttempt();
     } else if(value === "false") {
-      this.setState(prevState => {
-        const numberOfTry = prevState.numberOfTry + 1;
-        return ({
-          isAnswerSelected: true,
-          isAnswerCorrect: false,
-          numberOfTry
-        })
-      })
+        this.increaseAttempt();
     }
   }
+  updateCorrectAnswer = () => {
+    this.setState(prevState => {
+      const numberOfTry = prevState.numberOfTry + 1;
+      const answerDuration = 20 - prevState.countDown;
+      const totalCorrectAnswer = prevState.totalCorrectAnswer + 1;
+      return ({
+        isAnswerCorrect: true,
+        numberOfTry,
+        countDown: 20,
+        answerDuration,
+        totalCorrectAnswer
+      })
+    })
+  }
 
+  increaseAttempt = () => {
+    this.setState(prevState => {
+      const numberOfTry = prevState.numberOfTry + 1;
+      return ({
+        numberOfTry
+      })
+    })
+  }
   showQuestion = () => {
     if (!this.state.isQuizComplete) {
       return (
@@ -104,20 +114,42 @@ class QuizSession extends Component {
       )
     }
   }
-  showMessage = () => {
-    if (this.state.numberOfTry && !this.state.isQuizComplete) {
-      return (
-        this.state.isAnswerCorrect ?
-        <p>Wonderful! You are correct!</p>
-        : <p>Unfortunately! Your answer is wrong, try it again</p>
-      )
+  showTimerOrMessage = () => {
+    const attemp = this.state.numberOfTry;
+    const isComplete = this.state.isQuizComplete;
+    const isCorrect = this.state.isAnswerCorrect;
+    if (!isComplete) {
+      switch (attemp) {
+        case 1:
+          return (
+            isCorrect ?
+            <p>Amazing! You are correct!</p>
+            : <p>Your answer is wrong, try it again!</p>
+          )
+          break;
+        case 2:
+          return (
+            isCorrect ?
+            <p>Wonderful! You make it right!!</p>
+            : <p>Maximum Attemp! Let's move on!</p>
+          )
+        default:
+          return (
+            <h3>{this.state.countDown}</h3>
+          )
+        }
+      }
     }
-  }
 
-  showTimerOrResult = () => {
+
+  showResult = () => {
     if (this.state.isQuizComplete) {
       return (
-        <QuizResult />
+        <QuizResult score={this.state.score}
+                    tester={this.props.tester}
+                    totalCorrect={this.state.totalCorrectAnswer}
+                    totalAnswer={this.state.totalAnswers.length}
+        />
       )
     }
   }
@@ -127,8 +159,8 @@ class QuizSession extends Component {
         <h2>{this.props.description}</h2>
         {this.showQuestion()}
         {this.showAnswerSet()}
-        {this.showMessage()}
-        {this.showTimerOrResult()}
+        {this.showTimerOrMessage()}
+        {this.showResult()}
       </div>
     );
   }

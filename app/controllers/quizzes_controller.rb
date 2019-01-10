@@ -46,7 +46,7 @@ class QuizzesController < ApplicationController
     @quizzes = current_user.quizzes
     render json: @quizzes
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
@@ -55,6 +55,6 @@ class QuizzesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def quiz_params
-      params.require(:quiz).permit(:title, :description)
+      params.require(:quiz).permit(:title, :description, :user_id)
     end
 end
