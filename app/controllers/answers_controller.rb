@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:show, :update, :destroy]
-
+  before_action :authenticate_user, only: [:create, :update, :destroy]
   # GET /answers
   def index
     if params.has_key?(:question_id)

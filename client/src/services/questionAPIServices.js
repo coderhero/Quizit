@@ -7,6 +7,7 @@ async function getAllQuestionsByQuiz(id) {
   return response.data;
 }
 
+
 export {
-  getAllQuestionsByQuiz
+  getAllQuestionsByQuiz,
 }

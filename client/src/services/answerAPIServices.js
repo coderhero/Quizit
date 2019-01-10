@@ -13,6 +13,11 @@ async function getAllAnswersByQuestion(ids) {
   return resp;
 }
 
+async function getQuestionAnswers(questionid) {
+  const response = await axios.get(`${BASE_URL}/questions/${questionid}/answers`);
+  return response.data;
+}
+
 export {
   getAllAnswersByQuestion
 }

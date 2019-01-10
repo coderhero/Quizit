@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import QuizSession from './QuizSession';
 import NavBar from './LandingPage/NavBar';
 import SearchBar from './LandingPage/SearchBar';
+import AuthForms from './components/AuthForms';
 import QuizzesPage from './AllQuizzesPage';
 import { getAllQuizzes } from './services/quizAPIServices';
-
 import './App.css';
 
 class App extends Component {
@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       totalQuizzes: [],
+      username: '',
       quizSessionID: 0,
       quizSessionDescription: '',
       screen: 'Home',
@@ -52,7 +53,8 @@ class App extends Component {
         quizSessionID: sessionQuiz.id,
         quizSessionDescription: sessionQuiz.description,
         screen: 'QuizSession',
-        searchTerm: ''
+        searchTerm: '',
+        tester: ''
       });
 
     }
@@ -63,7 +65,11 @@ class App extends Component {
       screen: id
     })
   }
-
+  updateUserLogin = username => {
+    this.setState({
+      username
+    })
+  }
   showSearchBar() {
     return (
       <SearchBar
@@ -96,21 +102,17 @@ class App extends Component {
         return (
           <QuizzesPage />
         )
-        break;
-      case "Profile":
 
+      case 'AuthForms':
+        return (
+          <AuthForms updateUserLogin={this.updateUserLogin}/>
+        )
       case "QuizSession":
        return (
         <div>
           { this.showQuizSession() }
         </div>
       )
-        break;
-        return (
-          <div>
-
-          </div>
-        )
       default:
 
     }
@@ -120,6 +122,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavBar navPage={this.navPage}
+                username={this.state.username}
           />
         { this.getView() }
       </div>

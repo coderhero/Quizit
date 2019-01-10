@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink, Button, Row } from 'reactstrap';
 
 export default function NavBar(props) {
     return (
@@ -24,10 +24,19 @@ export default function NavBar(props) {
             >React Quiz</NavLink>
           </NavItem>
           <NavItem>
+          {
+            props.username ?
+            <div>
+            <Row>
+            <p>Welcome {props.username}</p>
+            <Button>Logout</Button>
+            </Row>
+            </div> :
             <NavLink href="#"
                      onClick={props.navPage}
-                     id='Login'
+                     id='AuthForms'
             >Login/Signup</NavLink>
+          }
           </NavItem>
         </Nav>
       </div>
