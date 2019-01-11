@@ -10,6 +10,7 @@ export default function QuizList(props) {
           <QuestionAnswerBundle key={question.id}
                                 question={question}
                                 answers={props.answers[index]}
+                                handleDelete={props.handleDelete}
           />
         )
       )}

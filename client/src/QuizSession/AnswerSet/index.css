@@ -1,12 +1,9 @@
 .answer-set {
-  width: 80%;
-  height: 5% auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+
+
+
 }
 
-.answer-set > * {
-
-
+.option-btn {
+  margin: 40px 20px 50px 20px;
 }

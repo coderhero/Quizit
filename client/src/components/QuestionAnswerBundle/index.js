@@ -7,7 +7,9 @@ export default function QuestionAnswerBundle(props) {
       <div>
         {props.answers.map(answer => {
           return <EachAnswer key={answer.id}
-                             answer={answer.answer}/>
+                             id={answer.id}
+                             answer={answer.answer}
+                             handleDelete={props.handleDelete}/>
         })}
       </div>
     </div>

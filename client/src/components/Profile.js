@@ -6,6 +6,7 @@ import { getQuizQuestions } from '../services/quizAPIServices';
 import { getQuestionAnswers } from '../services/questionAPIServices';
 import { getAllAnswersByQuestion } from '../services/answerAPIServices';
 import { getAllQuestionsByQuiz } from '../services/questionAPIServices';
+import { deleteOneAnswer } from '../services/answerAPIServices';
 
 
 export default class Profile extends React.Component {
@@ -14,11 +15,18 @@ export default class Profile extends React.Component {
     this.state = {
       totalQuestions: null,
       totalAnswers: null,
-      quizID: 12,
+      quizID: 1,
       isDataLoaded: false
     }
   }
-  async componentDidMount() {
+  handleAnswerDelete = async e => {
+    console.log(e.currentTarget.id)
+    console.log('ready to delete')
+    await deleteOneAnswer(e.currentTarget.id);
+    await this.fetchAllQuestionsAnswers();
+  }
+
+  fetchAllQuestionsAnswers = async() => {
     const questions = await getAllQuestionsByQuiz(this.state.quizID);
     const questionIDs = await questions.map(e => e.id);
     const answers = await getAllAnswersByQuestion(questionIDs);
@@ -29,12 +37,17 @@ export default class Profile extends React.Component {
       isDataLoaded: true
     })
   }
+  async componentDidMount() {
+    await this.fetchAllQuestionsAnswers();
+  }
   render() {
     return (
       <div>
       {this.state.isDataLoaded ?
         <QuizList questions={this.state.totalQuestions}
                   answers={this.state.totalAnswers}
+                  handleDelete={this.handleAnswerDelete}
+
         /> : null}
       </div>
     )

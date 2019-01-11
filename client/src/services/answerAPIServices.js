@@ -18,6 +18,11 @@ async function getQuestionAnswers(questionid) {
   return response.data;
 }
 
+async function deleteOneAnswer(answerid) {
+  const response = await axios.delete(`${BASE_URL}/answers/${answerid}`)
+}
+
 export {
-  getAllAnswersByQuestion
+  getAllAnswersByQuestion,
+  deleteOneAnswer,
 }

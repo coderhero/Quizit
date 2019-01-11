@@ -6,6 +6,7 @@ import SessionInfo from './SessionInfo';
 import LoadingMask from '../util/LoadingMask';
 import { getAllQuestionsByQuiz } from '../services/questionAPIServices';
 import { getAllAnswersByQuestion } from '../services/answerAPIServices';
+import { Alert } from 'reactstrap';
 
 class QuizSession extends Component {
   constructor(props) {
@@ -83,12 +84,15 @@ class QuizSession extends Component {
       const numberOfTry = prevState.numberOfTry + 1;
       const answerDuration = 20 - prevState.countDown;
       const totalCorrectAnswer = prevState.totalCorrectAnswer + 1;
+      // score update here but need to refactory
+      const score = prevState.score + 300;
       return ({
         isAnswerCorrect: true,
         numberOfTry,
         countDown: 20,
         answerDuration,
-        totalCorrectAnswer
+        totalCorrectAnswer,
+        score
       })
     })
   }
@@ -129,15 +133,15 @@ class QuizSession extends Component {
         case 1:
           return (
             isCorrect ?
-            <p>Amazing! You are correct!</p>
-            : <p>Your answer is wrong, try it again!</p>
+            <Alert color="success">Amazing! You are correct!</Alert>
+            : <Alert color="warning">Answer is wrong, try again!</Alert>
           )
           break;
         case 2:
           return (
             isCorrect ?
-            <p>Wonderful! You make it right!!</p>
-            : <p>Maximum Attemp! Let's move on!</p>
+            <Alert color="success">Wonderful! You make it right!</Alert>
+            : <Alert color="danger">Maximum Attemp! Move on!</Alert>
           )
         default:
           return (

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
+import './index.css';
 
 class AnswerSet extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class AnswerSet extends Component {
           {this.props.answers.map(answer => {
             return (
               <Button id={answer.id}
+                      className="option-btn"
                       key={answer.id}
                       color="info"
                       value={answer.correct}
