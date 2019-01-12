@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = '/api';
 
 async function getAllAnswersByQuestion(ids) {
   // have to use Promise.all or not gonna work
