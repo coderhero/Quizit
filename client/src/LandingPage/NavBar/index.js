@@ -31,6 +31,7 @@ export default function NavBar(props) {
                   <span className="welcome-user">Welcome {props.username}</span>
                   <NavLink href="#"
                            id="logout"
+                           onClick={props.handleUserLogout}
                     >Logout</NavLink>
               </Row> :
              <NavLink href="#"

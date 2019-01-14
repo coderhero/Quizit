@@ -34,7 +34,7 @@ class QuizSession extends Component {
     this.setState({
       totalQuestions: questions,
       totalAnswers: answers,
-      currentQuestionID: questions[0].id,
+      // currentQuestionID: questions[0].id,
 
     })
   }

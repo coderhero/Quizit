@@ -20,7 +20,6 @@ class App extends Component {
       searchTerm: '',
       tester: '',
       redirectToProfile: false,
-
     }
   }
   async componentDidMount() {
@@ -67,6 +66,15 @@ class App extends Component {
       screen: id
     })
   }
+  handleUserLogout = e => {
+    localStorage.removeItem('token');
+    this.setState({
+      screen: "AuthForms",
+      username: '',
+      redirectToProfile: false
+    });
+  }
+
   updateUserLogin = username => {
     this.setState({
       username,
@@ -74,6 +82,14 @@ class App extends Component {
 
     })
   }
+  enterQuizSession = e => {
+    const { id } = e.currentTarget.id;
+    this.setState({
+      screen: "QuizSession",
+      quizSessionID: id,
+    })
+  }
+
   showSearchBar() {
     return (
       <SearchBar
@@ -104,7 +120,9 @@ class App extends Component {
 
       case 'AllQuizzes':
         return (
-          <QuizzesPage />
+          <QuizzesPage totalQuizzes={this.state.totalQuizzes}
+                       enterQuizSession={this.enterQuizSession}
+            />
         )
 
       case 'AuthForms':
@@ -133,6 +151,7 @@ class App extends Component {
       <div className="App">
         <NavBar navPage={this.navPage}
                 username={this.state.username}
+                handleUserLogout={this.handleUserLogout}
           />
         { this.getView() }
       </div>

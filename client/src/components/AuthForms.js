@@ -24,7 +24,13 @@ export default class AuthForms extends React.Component {
       const tokenData = await login(this.state.credentials);
       localStorage.setItem('token', tokenData.jwt);
       this.props.updateUserLogin(this.state.credentials.username);
-
+      this.setState({
+        credentials: {
+          username: '',
+          email: '',
+          password: ''
+        }
+      })
     } catch (e) {
       console.log(e.message)
     }
