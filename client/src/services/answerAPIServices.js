@@ -17,6 +17,11 @@ async function getQuestionAnswers(questionID) {
   return response.data;
 }
 
+async function fetchOneAnswer(answerID) {
+  const response = await axios.get(`${BASE_URL}/answers/${answerID}`)
+  return response.data;
+}
+
 async function deleteOneAnswer(answerID) {
   const response = await axios.delete(`${BASE_URL}/answers/${answerID}`)
 }
@@ -31,8 +36,20 @@ async function createOneAnswer(questionID, answerData) {
     }
   );
 }
+async function editOneAnswer(answerID, answerData) {
+  const response = await axios.put(`${BASE_URL}/answers/${answerID}`,
+    {
+      "answer": {
+        "answer": answerData.answer,
+        "correct": answerData.correct
+      }
+    }
+  );
+}
 export {
   getAllAnswersByQuestion,
   deleteOneAnswer,
   createOneAnswer,
+  editOneAnswer,
+  fetchOneAnswer,
 }

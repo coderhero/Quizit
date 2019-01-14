@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import CreateAnswerForm from './CreateAnswerForm';
-
+import EditAnswerForm from './EditAnswerForm';
+import { fetchOneAnswer, editOneAnswer } from '../../services/answerAPIServices';
 import './EachAnswer.css';
 
 class EachAnswer extends React.Component {
@@ -9,7 +10,13 @@ class EachAnswer extends React.Component {
     super(props);
     this.state = {
       toCreateAnswer: false,
-      questionID: 0
+      toEditAnswer: false,
+      questionID: 0,
+      editAnswerID: 0,
+      editAnswerForm: {
+        answer: '',
+        correct: ''
+      }
     }
   }
   createAnswer = e => {
@@ -19,6 +26,20 @@ class EachAnswer extends React.Component {
       questionID: id,
     })
   }
+  editAnswer = async e => {
+    console.log(e.currentTarget.id);
+    const resp = await fetchOneAnswer(e.currentTarget.id);
+    const { answer, correct } = resp;
+    this.setState({
+      editAnswerID: resp.id,
+      toEditAnswer: true,
+      editAnswerForm: {
+        answer,
+        correct
+      }
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.toCloseAnswer === true) {
       this.setState({
@@ -46,6 +67,7 @@ class EachAnswer extends React.Component {
           <Button size="sm"
                   color="info"
                   id={this.props.id}
+                  onClick={this.editAnswer}
                   >Edit</Button>
           <Button size="sm"
                   color="danger"
@@ -55,6 +77,48 @@ class EachAnswer extends React.Component {
       </div>
     )
   }
+  showAnswerEditForm = () => {
+    if (this.state.toEditAnswer) {
+      return (
+        <EditAnswerForm handleChange={this.handleAnswerEditChange}
+                        handleSubmit={this.handleAnswerEditSubmit}
+                        answerEdit={this.state.editAnswerForm}
+                        id={this.state.editAnswerID}
+          />
+      )
+    } else {
+      return null;
+    }
+  }
+
+  handleAnswerEditChange = e => {
+    const { id, value } = e.target;
+    this.setState(prevState => (
+      {
+        editAnswerForm: {
+          ...prevState.editAnswerForm,
+          [id]: value,
+        }
+      }
+    ))
+  }
+  handleAnswerEditSubmit = async e => {
+    e.preventDefault();
+    const id = e.target.id;
+    console.log(id);
+    this.setState({
+      toEditAnswer: false
+    })
+    await editOneAnswer(id, this.state.editAnswerForm);
+    await this.props.fetchAll();
+    this.setState({
+      editAnswerForm: {
+        answer: '',
+        correct: ''
+      }
+    })
+  }
+
   render() {
     return (
       <div>
@@ -65,7 +129,8 @@ class EachAnswer extends React.Component {
                             answerCreate={this.props.answerCreate}
                             id={this.state.questionID}
 
-          /> : null }
+          /> : this.showAnswerEditForm()
+         }
       </div>
     )
   }

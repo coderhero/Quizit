@@ -95,6 +95,7 @@ export default class Profile extends React.Component {
                   handleAnswerSubmit={this.handleAnswerSubmit}
                   answerCreate={this.state.createAnswerForm}
                   toCloseAnswer={this.state.toCloseAnswer}
+                  fetchAll={this.fetchAllQuestionsAnswers}
         /> : null}
       </div>
     )

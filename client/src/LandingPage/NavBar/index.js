@@ -28,7 +28,7 @@ export default function NavBar(props) {
           {
             props.username ?
               <Row>
-                  <span>Welcome {props.username}</span>
+                  <span className="welcome-user">Welcome {props.username}</span>
                   <NavLink href="#"
                            id="logout"
                     >Logout</NavLink>

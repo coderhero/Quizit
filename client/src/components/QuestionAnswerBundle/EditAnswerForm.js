@@ -4,7 +4,7 @@ import './EditAnswerForm.css'
 
 export default function EditAnswerForm(props) {
   return (
-    <Form onSubmit={props.handleAnswerEditSubmit}
+    <Form onSubmit={props.handleSubmit}
           className="edit-answer-form"
           id={props.id}
           >
@@ -14,7 +14,7 @@ export default function EditAnswerForm(props) {
           <Input placeholder="Answer"
                  id="answer"
                  type="text"
-                 onChange={props.handleAnswerEdit}
+                 onChange={props.handleChange}
                  value={props.answerEdit.answer}
                  bsSize="sm" />
         </Col>
@@ -25,7 +25,7 @@ export default function EditAnswerForm(props) {
           <Input placeholder="true or false"
                  id="correct"
                  type="text"
-                 onChange={props.handleAnswerEdit}
+                 onChange={props.handleChange}
                  value={props.answerEdit.correct}
                  bsSize="sm" />
         </Col>
@@ -36,3 +36,4 @@ export default function EditAnswerForm(props) {
       </Col>
     </Form>
   )
+}

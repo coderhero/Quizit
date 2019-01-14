@@ -8,12 +8,14 @@
 ## user story
 ### users (work in progress)
 - Register/Login
+- one account username: aa, email: aa@gmail.com password: aa
 - After Login, user can create a quiz including multiple questions
 - Each question has maximum four options and only one is correct
 - Able to add edit and delete quiz, questions and answers
 
 ### participants/attendee
 - Join a quiz by entering the quiz name
+- try search React as it's the one complete quiz inside the database
 - each question takes 20 seconds countdown (work in progress)
 - after student has selected answer or time is up, the message page
  shows if student answer it right or wrong

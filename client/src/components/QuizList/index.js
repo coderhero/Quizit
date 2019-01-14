@@ -16,6 +16,7 @@ export default function QuizList(props) {
                                 handleAnswerSubmit={props.handleAnswerSubmit}
                                 answerCreate={props.answerCreate}
                                 toCloseAnswer={props.toCloseAnswer}
+                                fetchAll={props.fetchAll}
           />
         )
       )}
