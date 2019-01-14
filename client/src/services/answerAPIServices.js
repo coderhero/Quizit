@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://nameless-earth-72847.herokuapp.com/api';
+import { BASE_URL } from './BASEURLServices.js'
 
 async function getAllAnswersByQuestion(ids) {
   // have to use Promise.all or not gonna work

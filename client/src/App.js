@@ -5,6 +5,7 @@ import SearchBar from './LandingPage/SearchBar';
 import AuthForms from './components/AuthForms';
 import QuizzesPage from './AllQuizzesPage';
 import { getAllQuizzes } from './services/quizAPIServices';
+import Profile from './components/Profile'
 import './App.css';
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
       quizSessionDescription: '',
       screen: 'Home',
       searchTerm: '',
-      tester: ''
+      tester: '',
+      redirectToProfile: false,
 
     }
   }
@@ -67,7 +69,9 @@ class App extends Component {
   }
   updateUserLogin = username => {
     this.setState({
-      username
+      username,
+      redirectToProfile: true,
+
     })
   }
   showSearchBar() {
@@ -105,7 +109,9 @@ class App extends Component {
 
       case 'AuthForms':
         return (
-          <AuthForms updateUserLogin={this.updateUserLogin}/>
+          <AuthForms updateUserLogin={this.updateUserLogin}
+                     redirectToProfile={this.state.redirectToProfile}
+            />
         )
       case "QuizSession":
        return (
@@ -113,6 +119,10 @@ class App extends Component {
           { this.showQuizSession() }
         </div>
       )
+      case "Profile":
+        return (
+          <Profile />
+        )
       default:
 
     }

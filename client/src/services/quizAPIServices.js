@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { BASE_URL } from './BASEURLServices.js';
 
-const BASE_URL = 'https://nameless-earth-72847.herokuapp.com/api';
+
 async function getAllQuizzes() {
   const resp = await axios.get(`${BASE_URL}/quizzes`);
   return resp.data;

@@ -26,17 +26,24 @@ export default function NavBar(props) {
           <NavItem>
           {
             props.username ?
-            <div>
-            <Row>
-            <p>Welcome {props.username}</p>
-            <Button>Logout</Button>
-            </Row>
-            </div> :
-            <NavLink href="#"
+              <Row>
+                  <span>Welcome {props.username}</span>
+                  <NavLink>Logout</NavLink>
+              </Row> :
+             <NavLink href="#"
                      onClick={props.navPage}
                      id='AuthForms'
             >Login/Signup</NavLink>
           }
+          </NavItem>
+          <NavItem>
+            {
+              props.username ?
+              <NavLink href="#"
+                       onClick={props.navPage}
+                       id="Profile"
+              >Profile</NavLink> : null
+            }
           </NavItem>
         </Nav>
       </div>

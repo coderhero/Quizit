@@ -13,10 +13,10 @@ export default class AuthForms extends React.Component {
         email: '',
         password: ''
       },
-      userid: 0,
-      redirectToProfile: false
+      userid: 0
     }
   }
+
 
   handleLoginSubmit = async e => {
     e.preventDefault();
@@ -24,9 +24,7 @@ export default class AuthForms extends React.Component {
       const tokenData = await login(this.state.credentials);
       localStorage.setItem('token', tokenData.jwt);
       this.props.updateUserLogin(this.state.credentials.username);
-      this.setState({
-        redirectToProfile: true
-      });
+
     } catch (e) {
       console.log(e.message)
     }
@@ -53,7 +51,7 @@ export default class AuthForms extends React.Component {
 
     return (
       <div>
-        {this.state.redirectToProfile ?
+        {this.props.redirectToProfile ?
           <Profile userid={this.state.userid} /> :
           <LoginForm handleLogin={this.handleLoginSubmit}
                      handleChange={this.handleChange}

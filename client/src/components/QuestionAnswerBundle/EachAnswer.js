@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import './EachAnswer.css';
 
 export default function EachAnswer(props) {
   return (
-    <div>
+    <div className="each-answer">
       <h5>{props.answer}</h5>
       <Button size="sm" color="success">Create</Button>
       <Button size="sm" color="info">Edit</Button>

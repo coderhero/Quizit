@@ -1,6 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:create, :update, :destroy]
+  # before_action :authenticate_user, only: [:create, :update, :destroy]
   # GET /quizzes
   def index
     if params.has_key?(:user_id)
