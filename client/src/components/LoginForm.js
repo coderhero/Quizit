@@ -1,9 +1,12 @@
 import React from 'react';
 import { Form, Input, FormGroup, Col, Label, Button } from 'reactstrap';
+import './LoginForm.css';
+
 
 export default function LoginForm(props) {
   return (
-    <Form onSubmit={props.handleLogin}>
+    <Form onSubmit={props.handleLogin}
+          className="login-form">
       <FormGroup row>
         <Label for="username" sm={2} size="lg">Username</Label>
         <Col sm={4}>

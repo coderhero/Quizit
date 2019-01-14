@@ -1,9 +1,10 @@
 import React from 'react';
 import { Nav, NavItem, NavLink, Button, Row } from 'reactstrap';
+import "./index.css";
 
 export default function NavBar(props) {
     return (
-      <div>
+      <div className="nav-bar">
         <Nav>
         <NavItem>
           <NavLink href="#"
@@ -28,7 +29,9 @@ export default function NavBar(props) {
             props.username ?
               <Row>
                   <span>Welcome {props.username}</span>
-                  <NavLink>Logout</NavLink>
+                  <NavLink href="#"
+                           id="logout"
+                    >Logout</NavLink>
               </Row> :
              <NavLink href="#"
                      onClick={props.navPage}

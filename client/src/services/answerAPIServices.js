@@ -12,16 +12,27 @@ async function getAllAnswersByQuestion(ids) {
   return resp;
 }
 
-async function getQuestionAnswers(questionid) {
-  const response = await axios.get(`${BASE_URL}/questions/${questionid}/answers`);
+async function getQuestionAnswers(questionID) {
+  const response = await axios.get(`${BASE_URL}/questions/${questionID}/answers`);
   return response.data;
 }
 
-async function deleteOneAnswer(answerid) {
-  const response = await axios.delete(`${BASE_URL}/answers/${answerid}`)
+async function deleteOneAnswer(answerID) {
+  const response = await axios.delete(`${BASE_URL}/answers/${answerID}`)
 }
 
+async function createOneAnswer(questionID, answerData) {
+  const response = await axios.post(`${BASE_URL}/questions/${questionID}/answers`,
+    {
+      "answer": {
+        "answer": answerData.answer,
+        "correct": answerData.correct
+      }
+    }
+  );
+}
 export {
   getAllAnswersByQuestion,
   deleteOneAnswer,
+  createOneAnswer,
 }

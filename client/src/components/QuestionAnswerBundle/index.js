@@ -8,8 +8,14 @@ export default function QuestionAnswerBundle(props) {
         {props.answers.map(answer => {
           return <EachAnswer key={answer.id}
                              id={answer.id}
+                             questionid={props.questionid}
                              answer={answer.answer}
-                             handleDelete={props.handleDelete}/>
+                             handleDelete={props.handleDelete}
+                             handleAnswerCreate={props.handleAnswerCreate}
+                             handleAnswerSubmit={props.handleAnswerSubmit}
+                             answerCreate={props.answerCreate}
+                             toCloseAnswer={props.toCloseAnswer}
+                             />
         })}
       </div>
     </div>

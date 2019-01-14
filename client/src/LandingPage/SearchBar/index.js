@@ -6,8 +6,8 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <div className="search-form">
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form onSubmit={this.props.handleSubmit}
+            className="search-form">
         <FormGroup row>
           <Label for="tester" sm={2} size="lg">Name</Label>
           <Col sm={4}>
@@ -36,29 +36,29 @@ class SearchBar extends Component {
         <Button type="submit" color="primary">Enter</Button>
         </Col>
       </Form>
-        {/*<form onSubmit={this.props.handleSubmit}>
-          <input
-          type="text"
-          name="tester"
-          placeholder="Enter Your Name Here"
-          onChange={this.props.handleChange}
-          value={this.props.tester}
-          >
-          </input>
-          <input
-          type="text"
-          name="searchTerm"
-          placeholder="Search Quiz"
-          value={this.props.searchTerm}
-          onChange={this.props.handleChange}
-          >
-          </input>
-          <button type="submit">Enter
-          </button>
-        </form>*/}
-      </div>
     )
   }
 }
 
 export default SearchBar;
+
+// <form onSubmit={this.props.handleSubmit}>
+//   <input
+//   type="text"
+//   name="tester"
+//   placeholder="Enter Your Name Here"
+//   onChange={this.props.handleChange}
+//   value={this.props.tester}
+//   >
+//   </input>
+//   <input
+//   type="text"
+//   name="searchTerm"
+//   placeholder="Search Quiz"
+//   value={this.props.searchTerm}
+//   onChange={this.props.handleChange}
+//   >
+//   </input>
+//   <button type="submit">Enter
+//   </button>
+// </form>
